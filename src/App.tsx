@@ -66,7 +66,7 @@ const translations: Record<string, Record<string, string>> = {
     'Three Sins': 'Three Sins',
     'Smile Recovery': 'Smile Recovery',
     'Last Updated': 'Last Updated',
-    'Copyright': '© 2025 Yve Hu. All rights reserved.',
+    'Copyright': '© 2025 Yve Hu',
   },
   '简体中文': {
     'Language': '语言',
@@ -85,7 +85,7 @@ const translations: Record<string, Record<string, string>> = {
     'Three Sins': '《三毒》',
     'Smile Recovery': '《笑脸康复工程》',
     'Last Updated': '上次更新',
-    'Copyright': '© 2025 Yve Hu 版权所有',
+    'Copyright': '© 2025 Yve Hu',
   },
 }
 
