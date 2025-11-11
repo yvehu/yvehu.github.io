@@ -200,9 +200,31 @@ function App() {
       setIsResizing(false)
     }
 
+    const handleTouchMove = (e: TouchEvent) => {
+      if (!isResizing) return
+      
+      e.preventDefault()
+      const touch = e.touches[0]
+      const newWidth = touch.clientX
+      // On mobile, use smaller min/max widths
+      const isMobile = window.innerWidth <= 480
+      const minWidth = isMobile ? 80 : 150
+      const maxWidth = isMobile ? window.innerWidth * 0.5 : window.innerWidth * 0.35
+      
+      if (newWidth >= minWidth && newWidth <= maxWidth) {
+        setSidebarWidth(newWidth)
+      }
+    }
+
+    const handleTouchEnd = () => {
+      setIsResizing(false)
+    }
+
     if (isResizing) {
       document.addEventListener('mousemove', handleMouseMove)
       document.addEventListener('mouseup', handleMouseUp)
+      document.addEventListener('touchmove', handleTouchMove, { passive: false })
+      document.addEventListener('touchend', handleTouchEnd)
       document.body.style.cursor = 'col-resize'
       document.body.style.userSelect = 'none'
     }
@@ -210,6 +232,8 @@ function App() {
     return () => {
       document.removeEventListener('mousemove', handleMouseMove)
       document.removeEventListener('mouseup', handleMouseUp)
+      document.removeEventListener('touchmove', handleTouchMove)
+      document.removeEventListener('touchend', handleTouchEnd)
       document.body.style.cursor = ''
       document.body.style.userSelect = ''
     }
@@ -2630,6 +2654,14 @@ function App() {
             onMouseDown={(e) => {
               e.preventDefault()
               setIsResizing(true)
+            }}
+            onTouchStart={(e) => {
+              e.preventDefault()
+              setIsResizing(true)
+              e.currentTarget.classList.add('touching')
+            }}
+            onTouchEnd={(e) => {
+              e.currentTarget.classList.remove('touching')
             }}
           />
         </aside>
