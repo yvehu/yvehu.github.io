@@ -11,6 +11,16 @@ import smileRecoveryContent2 from './assets/portfolio/games/SmileRecovery_conten
 import smileRecoveryContent3 from './assets/portfolio/games/SmileRecovery_content3.png'
 import smileRecoveryVideo from './assets/portfolio/games/SmileRecovery_video.png'
 
+// Get base URL for assets (handles GitHub Pages subdirectory)
+const BASE_URL = import.meta.env.BASE_URL
+
+// Helper function to get public asset path
+const getPublicPath = (path: string) => {
+  // Remove leading slash if present, then add base URL
+  const cleanPath = path.startsWith('/') ? path.slice(1) : path
+  return `${BASE_URL}${cleanPath}`
+}
+
 type Page = 'welcome' | 'interests' | 'dreams' | 'favorites' | 'portfolio' | 'skills' | 'experience' | 'games' | 'backend-projects' | 'three-sins' | 'smile-recovery' | 'contact'
 
 interface NavItem {
@@ -120,20 +130,20 @@ function App() {
   // Preload skill images on component mount
   useEffect(() => {
     const skillImages = [
-      '/tech-logos/Unity.png',
-      '/tech-logos/Jira.png',
-      '/tech-logos/Miro.png',
-      '/tech-logos/Figma.png',
-      '/tech-logos/Lark.png',
-      '/tech-logos/SpringBoot.png',
-      '/tech-logos/Kitex.png',
-      '/tech-logos/MySQL.png',
-      '/tech-logos/Redis.png',
-      '/tech-logos/MongoDB.png',
-      '/tech-logos/RocketMQ.png',
-      '/tech-logos/RabbitMQ.png',
-      '/tech-logos/Kafka.png',
-      '/tech-logos/Git.png'
+      getPublicPath('tech-logos/Unity.png'),
+      getPublicPath('tech-logos/Jira.png'),
+      getPublicPath('tech-logos/Miro.png'),
+      getPublicPath('tech-logos/Figma.png'),
+      getPublicPath('tech-logos/Lark.png'),
+      getPublicPath('tech-logos/SpringBoot.png'),
+      getPublicPath('tech-logos/Kitex.png'),
+      getPublicPath('tech-logos/MySQL.png'),
+      getPublicPath('tech-logos/Redis.png'),
+      getPublicPath('tech-logos/MongoDB.png'),
+      getPublicPath('tech-logos/RocketMQ.png'),
+      getPublicPath('tech-logos/RabbitMQ.png'),
+      getPublicPath('tech-logos/Kafka.png'),
+      getPublicPath('tech-logos/Git.png')
     ]
     
     const loadImage = (src: string): Promise<void> => {
@@ -1442,10 +1452,10 @@ function App() {
               <div className="skills-logo-container">
                 <span className="logo-wrapper">
                   <img 
-                    src="/tech-logos/Unity.png" 
+                    src={getPublicPath('tech-logos/Unity.png')} 
                     alt="Unity" 
-                    className={`skills-logo unity-logo ${loadedImages.has('/tech-logos/Unity.png') ? 'loaded' : ''}`}
-                    onLoad={() => setLoadedImages(prev => new Set(prev).add('/tech-logos/Unity.png'))}
+                    className={`skills-logo unity-logo ${loadedImages.has(getPublicPath('tech-logos/Unity.png')) ? 'loaded' : ''}`}
+                    onLoad={() => setLoadedImages(prev => new Set(prev).add(getPublicPath('tech-logos/Unity.png')))}
                   />
                   <span className="logo-tooltip">Unity</span>
                 </span>
@@ -1469,37 +1479,37 @@ function App() {
               <div className="skills-logo-container">
                 <span className="logo-wrapper">
                   <img 
-                    src="/tech-logos/Jira.png" 
+                    src={getPublicPath('tech-logos/Jira.png')} 
                     alt="Jira" 
-                    className={`skills-logo pm-logo ${loadedImages.has('/tech-logos/Jira.png') ? 'loaded' : ''}`}
-                    onLoad={() => setLoadedImages(prev => new Set(prev).add('/tech-logos/Jira.png'))}
+                    className={`skills-logo pm-logo ${loadedImages.has(getPublicPath('tech-logos/Jira.png')) ? 'loaded' : ''}`}
+                    onLoad={() => setLoadedImages(prev => new Set(prev).add(getPublicPath('tech-logos/Jira.png')))}
                   />
                   <span className="logo-tooltip">Jira</span>
                 </span>
                 <span className="logo-wrapper miro-wrapper">
                   <img 
-                    src="/tech-logos/Miro.png" 
+                    src={getPublicPath('tech-logos/Miro.png')} 
                     alt="Miro" 
-                    className={`skills-logo pm-logo miro-logo ${loadedImages.has('/tech-logos/Miro.png') ? 'loaded' : ''}`}
-                    onLoad={() => setLoadedImages(prev => new Set(prev).add('/tech-logos/Miro.png'))}
+                    className={`skills-logo pm-logo miro-logo ${loadedImages.has(getPublicPath('tech-logos/Miro.png')) ? 'loaded' : ''}`}
+                    onLoad={() => setLoadedImages(prev => new Set(prev).add(getPublicPath('tech-logos/Miro.png')))}
                   />
                   <span className="logo-tooltip">Miro</span>
                 </span>
                 <span className="logo-wrapper">
                   <img 
-                    src="/tech-logos/Figma.png" 
+                    src={getPublicPath('tech-logos/Figma.png')} 
                     alt="Figma" 
-                    className={`skills-logo pm-logo ${loadedImages.has('/tech-logos/Figma.png') ? 'loaded' : ''}`}
-                    onLoad={() => setLoadedImages(prev => new Set(prev).add('/tech-logos/Figma.png'))}
+                    className={`skills-logo pm-logo ${loadedImages.has(getPublicPath('tech-logos/Figma.png')) ? 'loaded' : ''}`}
+                    onLoad={() => setLoadedImages(prev => new Set(prev).add(getPublicPath('tech-logos/Figma.png')))}
                   />
                   <span className="logo-tooltip">Figma</span>
                 </span>
                 <span className="logo-wrapper">
                   <img 
-                    src="/tech-logos/Lark.png" 
+                    src={getPublicPath('tech-logos/Lark.png')} 
                     alt="Lark" 
-                    className={`skills-logo pm-logo lark-logo ${loadedImages.has('/tech-logos/Lark.png') ? 'loaded' : ''}`}
-                    onLoad={() => setLoadedImages(prev => new Set(prev).add('/tech-logos/Lark.png'))}
+                    className={`skills-logo pm-logo lark-logo ${loadedImages.has(getPublicPath('tech-logos/Lark.png')) ? 'loaded' : ''}`}
+                    onLoad={() => setLoadedImages(prev => new Set(prev).add(getPublicPath('tech-logos/Lark.png')))}
                   />
                   <span className="logo-tooltip">Lark</span>
                 </span>
@@ -1523,19 +1533,19 @@ function App() {
               <div className="skills-logo-container">
                 <span className="logo-wrapper">
                   <img 
-                    src="/tech-logos/SpringBoot.png" 
+                    src={getPublicPath('tech-logos/SpringBoot.png')} 
                     alt="Spring Boot" 
-                    className={`skills-logo backend-logo ${loadedImages.has('/tech-logos/SpringBoot.png') ? 'loaded' : ''}`}
-                    onLoad={() => setLoadedImages(prev => new Set(prev).add('/tech-logos/SpringBoot.png'))}
+                    className={`skills-logo backend-logo ${loadedImages.has(getPublicPath('tech-logos/SpringBoot.png')) ? 'loaded' : ''}`}
+                    onLoad={() => setLoadedImages(prev => new Set(prev).add(getPublicPath('tech-logos/SpringBoot.png')))}
                   />
                   <span className="logo-tooltip">Spring Boot</span>
                 </span>
                 <span className="logo-wrapper">
                   <img 
-                    src="/tech-logos/Kitex.png" 
+                    src={getPublicPath('tech-logos/Kitex.png')} 
                     alt="Kitex" 
-                    className={`skills-logo backend-logo kitex-logo ${loadedImages.has('/tech-logos/Kitex.png') ? 'loaded' : ''}`}
-                    onLoad={() => setLoadedImages(prev => new Set(prev).add('/tech-logos/Kitex.png'))}
+                    className={`skills-logo backend-logo kitex-logo ${loadedImages.has(getPublicPath('tech-logos/Kitex.png')) ? 'loaded' : ''}`}
+                    onLoad={() => setLoadedImages(prev => new Set(prev).add(getPublicPath('tech-logos/Kitex.png')))}
                   />
                   <a
                     href="https://www.cloudwego.io/docs/kitex/"
@@ -1566,28 +1576,28 @@ function App() {
               <div className="skills-logo-container">
                 <span className="logo-wrapper">
                   <img 
-                    src="/tech-logos/MySQL.png" 
+                    src={getPublicPath('tech-logos/MySQL.png')} 
                     alt="MySQL" 
-                    className={`skills-logo backend-logo mysql-logo ${loadedImages.has('/tech-logos/MySQL.png') ? 'loaded' : ''}`}
-                    onLoad={() => setLoadedImages(prev => new Set(prev).add('/tech-logos/MySQL.png'))}
+                    className={`skills-logo backend-logo mysql-logo ${loadedImages.has(getPublicPath('tech-logos/MySQL.png')) ? 'loaded' : ''}`}
+                    onLoad={() => setLoadedImages(prev => new Set(prev).add(getPublicPath('tech-logos/MySQL.png')))}
                   />
                   <span className="logo-tooltip">MySQL</span>
                 </span>
                 <span className="logo-wrapper redis-wrapper">
                   <img 
-                    src="/tech-logos/Redis.png" 
+                    src={getPublicPath('tech-logos/Redis.png')} 
                     alt="Redis" 
-                    className={`skills-logo backend-logo redis-logo ${loadedImages.has('/tech-logos/Redis.png') ? 'loaded' : ''}`}
-                    onLoad={() => setLoadedImages(prev => new Set(prev).add('/tech-logos/Redis.png'))}
+                    className={`skills-logo backend-logo redis-logo ${loadedImages.has(getPublicPath('tech-logos/Redis.png')) ? 'loaded' : ''}`}
+                    onLoad={() => setLoadedImages(prev => new Set(prev).add(getPublicPath('tech-logos/Redis.png')))}
                   />
                   <span className="logo-tooltip">Redis</span>
                 </span>
                 <span className="logo-wrapper mongodb-wrapper">
                   <img 
-                    src="/tech-logos/MongoDB.png" 
+                    src={getPublicPath('tech-logos/MongoDB.png')} 
                     alt="MongoDB" 
-                    className={`skills-logo backend-logo mongodb-logo ${loadedImages.has('/tech-logos/MongoDB.png') ? 'loaded' : ''}`}
-                    onLoad={() => setLoadedImages(prev => new Set(prev).add('/tech-logos/MongoDB.png'))}
+                    className={`skills-logo backend-logo mongodb-logo ${loadedImages.has(getPublicPath('tech-logos/MongoDB.png')) ? 'loaded' : ''}`}
+                    onLoad={() => setLoadedImages(prev => new Set(prev).add(getPublicPath('tech-logos/MongoDB.png')))}
                   />
                   <span className="logo-tooltip">MongoDB</span>
                 </span>
@@ -1611,28 +1621,28 @@ function App() {
               <div className="skills-logo-container">
                 <span className="logo-wrapper rocketmq-wrapper">
                   <img 
-                    src="/tech-logos/RocketMQ.png" 
+                    src={getPublicPath('tech-logos/RocketMQ.png')} 
                     alt="RocketMQ" 
-                    className={`skills-logo backend-logo rocketmq-logo ${loadedImages.has('/tech-logos/RocketMQ.png') ? 'loaded' : ''}`}
-                    onLoad={() => setLoadedImages(prev => new Set(prev).add('/tech-logos/RocketMQ.png'))}
+                    className={`skills-logo backend-logo rocketmq-logo ${loadedImages.has(getPublicPath('tech-logos/RocketMQ.png')) ? 'loaded' : ''}`}
+                    onLoad={() => setLoadedImages(prev => new Set(prev).add(getPublicPath('tech-logos/RocketMQ.png')))}
                   />
                   <span className="logo-tooltip">RocketMQ</span>
                 </span>
                 <span className="logo-wrapper rabbitmq-wrapper">
                   <img 
-                    src="/tech-logos/RabbitMQ.png" 
+                    src={getPublicPath('tech-logos/RabbitMQ.png')} 
                     alt="RabbitMQ" 
-                    className={`skills-logo backend-logo rabbitmq-logo ${loadedImages.has('/tech-logos/RabbitMQ.png') ? 'loaded' : ''}`}
-                    onLoad={() => setLoadedImages(prev => new Set(prev).add('/tech-logos/RabbitMQ.png'))}
+                    className={`skills-logo backend-logo rabbitmq-logo ${loadedImages.has(getPublicPath('tech-logos/RabbitMQ.png')) ? 'loaded' : ''}`}
+                    onLoad={() => setLoadedImages(prev => new Set(prev).add(getPublicPath('tech-logos/RabbitMQ.png')))}
                   />
                   <span className="logo-tooltip">RabbitMQ</span>
                 </span>
                 <span className="logo-wrapper kafka-wrapper">
                   <img 
-                    src="/tech-logos/Kafka.png" 
+                    src={getPublicPath('tech-logos/Kafka.png')} 
                     alt="Kafka" 
-                    className={`skills-logo backend-logo kafka-logo ${loadedImages.has('/tech-logos/Kafka.png') ? 'loaded' : ''}`}
-                    onLoad={() => setLoadedImages(prev => new Set(prev).add('/tech-logos/Kafka.png'))}
+                    className={`skills-logo backend-logo kafka-logo ${loadedImages.has(getPublicPath('tech-logos/Kafka.png')) ? 'loaded' : ''}`}
+                    onLoad={() => setLoadedImages(prev => new Set(prev).add(getPublicPath('tech-logos/Kafka.png')))}
                   />
                   <span className="logo-tooltip">Kafka</span>
                 </span>
@@ -1656,10 +1666,10 @@ function App() {
               <div className="skills-logo-container">
                 <span className="logo-wrapper git-wrapper">
                   <img 
-                    src="/tech-logos/Git.png" 
+                    src={getPublicPath('tech-logos/Git.png')} 
                     alt="Git" 
-                    className={`skills-logo git-logo ${loadedImages.has('/tech-logos/Git.png') ? 'loaded' : ''}`}
-                    onLoad={() => setLoadedImages(prev => new Set(prev).add('/tech-logos/Git.png'))}
+                    className={`skills-logo git-logo ${loadedImages.has(getPublicPath('tech-logos/Git.png')) ? 'loaded' : ''}`}
+                    onLoad={() => setLoadedImages(prev => new Set(prev).add(getPublicPath('tech-logos/Git.png')))}
                   />
                   <span className="logo-tooltip">Git</span>
                 </span>
@@ -1714,8 +1724,8 @@ function App() {
                     <div className="game-role">
                       <span>{selectedHumanLang === '简体中文' ? '程序员' : 'Programmer'}</span>
                       <span className="game-tech-icons">
-                        <img src="/tech-logos/Unity.png" alt="Unity" className="game-tech-icon" />
-                        <img src="/tech-logos/Csharp.png" alt="C#" className="game-tech-icon" />
+                        <img src={getPublicPath('tech-logos/Unity.png')} alt="Unity" className="game-tech-icon" />
+                        <img src={getPublicPath('tech-logos/Csharp.png')} alt="C#" className="game-tech-icon" />
                       </span>
                     </div>
                   </div>
@@ -1738,8 +1748,8 @@ function App() {
                     <div className="game-role">
                       <span>{selectedHumanLang === '简体中文' ? '音乐音效' : 'Audio Designer'}</span>
                       <span className="game-tech-icons">
-                        <img src="/tech-logos/Unity.png" alt="Unity" className="game-tech-icon" />
-                        <img src="/tech-logos/Csharp.png" alt="C#" className="game-tech-icon" />
+                        <img src={getPublicPath('tech-logos/Unity.png')} alt="Unity" className="game-tech-icon" />
+                        <img src={getPublicPath('tech-logos/Csharp.png')} alt="C#" className="game-tech-icon" />
                       </span>
                     </div>
                     <div className="game-award">
@@ -1928,11 +1938,11 @@ function App() {
                         <span className="three-sins-label">{selectedHumanLang === '简体中文' ? '技术实现：' : 'Tech & Tools:'}</span>
                         <span className="three-sins-tech-icons">
                           <span className="game-tech-icon-wrapper">
-                            <img src="/tech-logos/Unity.png" alt="Unity" className="three-sins-tech-icon" />
+                            <img src={getPublicPath('tech-logos/Unity.png')} alt="Unity" className="three-sins-tech-icon" />
                             <span className="game-tech-tooltip">Unity</span>
                           </span>
                           <span className="game-tech-icon-wrapper">
-                            <img src="/tech-logos/Csharp.png" alt="C#" className="three-sins-tech-icon" />
+                            <img src={getPublicPath('tech-logos/Csharp.png')} alt="C#" className="three-sins-tech-icon" />
                             <span className="game-tech-tooltip">C#</span>
                           </span>
                         </span>
@@ -2138,11 +2148,11 @@ function App() {
                         <span className="three-sins-label">{selectedHumanLang === '简体中文' ? '技术实现：' : 'Tech & Tools:'}</span>
                         <span className="three-sins-tech-icons">
                           <span className="game-tech-icon-wrapper">
-                            <img src="/tech-logos/Unity.png" alt="Unity" className="three-sins-tech-icon" />
+                            <img src={getPublicPath('tech-logos/Unity.png')} alt="Unity" className="three-sins-tech-icon" />
                             <span className="game-tech-tooltip">Unity</span>
                           </span>
                           <span className="game-tech-icon-wrapper">
-                            <img src="/tech-logos/Csharp.png" alt="C#" className="three-sins-tech-icon" />
+                            <img src={getPublicPath('tech-logos/Csharp.png')} alt="C#" className="three-sins-tech-icon" />
                             <span className="game-tech-tooltip">C#</span>
                           </span>
                         </span>
@@ -2373,28 +2383,28 @@ function App() {
       const lang = selectedHumanLang || 'English'
       const contactData = {
         '[CONTACT_EMAIL]': {
-          icon: '/contact-icons/Gmail.png',
+          icon: getPublicPath('contact-icons/Gmail.png'),
           platform: lang === '简体中文' ? '邮箱' : 'Email',
           account: 'yvehu02@gmail.com',
           description: lang === '简体中文' ? '// 直接发消息或正式合作' : '// For direct messages or formal collaboration',
           url: 'mailto:yvehu02@gmail.com'
         },
         '[CONTACT_DISCORD]': {
-          icon: '/contact-icons/Discord.png',
+          icon: getPublicPath('contact-icons/Discord.png'),
           platform: 'Discord',
           account: 'jesuisyve02',
           description: lang === '简体中文' ? '// 首选如果想Game Jam组队！' : '// Preferred if for Game Jam team-ups!',
           url: 'https://discord.com/users/967253583093448774'
         },
         '[CONTACT_LINKEDIN]': {
-          icon: '/contact-icons/Linkedin.png',
+          icon: getPublicPath('contact-icons/Linkedin.png'),
           platform: lang === '简体中文' ? '领英' : 'Linkedin',
           account: 'www.linkedin.com/in/yvehu',
           description: lang === '简体中文' ? '// 在此了解更多她的背景' : '// To learn more about her background',
           url: 'https://www.linkedin.com/in/yvehu/'
         },
         '[CONTACT_INSTAGRAM]': {
-          icon: '/contact-icons/Instagram.png',
+          icon: getPublicPath('contact-icons/Instagram.png'),
           platform: 'Instagram',
           account: 'yveh.34',
           description: lang === '简体中文' ? "// 如果你想在纽约一起喝杯咖啡~" : "// If you'd like to grab a coffee in New York~",
@@ -2482,7 +2492,7 @@ function App() {
       <header className="top-bar">
         <div className="top-bar-left">
           <img 
-            src="/logo-cat.png" 
+            src={getPublicPath('logo-cat.png')} 
             alt="Yve Cat Logo" 
             className="logo"
             onError={(e) => {
