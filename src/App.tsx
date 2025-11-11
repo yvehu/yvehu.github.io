@@ -2636,7 +2636,6 @@ function App() {
                 // If dragging over the tab bar container (not a specific tab),
                 // check if we're near the end and set dragOverTabIndex to the last tab
                 if (draggedTabIndex !== null && openTabs.length > 0) {
-                  const rect = e.currentTarget.getBoundingClientRect()
                   const x = e.clientX
                   const children = Array.from(e.currentTarget.children) as HTMLElement[]
                   
@@ -2705,7 +2704,6 @@ function App() {
                 // If dropped on the tab bar container (not on a specific tab),
                 // check if we're at the end or start
                 if (draggedTabIndex !== null && openTabs.length > 0) {
-                  const rect = e.currentTarget.getBoundingClientRect()
                   const x = e.clientX
                   const children = Array.from(e.currentTarget.children) as HTMLElement[]
                   
@@ -2764,7 +2762,7 @@ function App() {
                   displayTabs[dragOverTabIndex] = temp
                 }
                 
-                return displayTabs.map((tabId, displayIndex) => {
+                return displayTabs.map((tabId) => {
                   const originalIndex = openTabs.indexOf(tabId)
                 const tabItem = navItems.find(item => item.id === tabId)
                 let tabLabel: string
