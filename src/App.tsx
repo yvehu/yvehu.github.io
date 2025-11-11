@@ -66,6 +66,7 @@ const translations: Record<string, Record<string, string>> = {
     'Three Sins': 'Three Sins',
     'Smile Recovery': 'Smile Recovery',
     'Last Updated': 'Last Updated',
+    'Copyright': '© 2025 Yve Hu. All rights reserved.',
   },
   '简体中文': {
     'Language': '语言',
@@ -84,6 +85,7 @@ const translations: Record<string, Record<string, string>> = {
     'Three Sins': '《三毒》',
     'Smile Recovery': '《笑脸康复工程》',
     'Last Updated': '上次更新',
+    'Copyright': '© 2025 Yve Hu 版权所有',
   },
 }
 
@@ -239,11 +241,21 @@ function App() {
     }
   }, [isResizing])
 
-  // Split long lines for interests, favorites, dreams pages
+  // Split long lines for interests, favorites, dreams pages (mobile only)
   useLayoutEffect(() => {
     const shouldSplitLines = ['interests', 'favorites', 'dreams'].includes(currentPage)
     
     if (!shouldSplitLines) {
+      setSplitContent([])
+      return
+    }
+    
+    // Detect mobile - only split on mobile devices
+    const isMobile = window.innerWidth <= 768
+    const isSmallMobile = window.innerWidth <= 480
+    
+    // For desktop, don't split lines - use original content
+    if (!isMobile && !isSmallMobile) {
       setSplitContent([])
       return
     }
@@ -267,9 +279,7 @@ function App() {
         containerWidth = Math.max(window.innerWidth - sidebarWidth - 100, 600)
       }
       
-      // Detect mobile and adjust parameters for compact-content
-      const isMobile = window.innerWidth <= 768
-      const isSmallMobile = window.innerWidth <= 480
+      // Mobile parameters for compact-content
       const fontSize = isSmallMobile ? 11 : isMobile ? 12 : 16
       const lineNumberWidth = isSmallMobile ? 18 : isMobile ? 20 : 48
       const linePaddingLeft = isSmallMobile ? 10 : isMobile ? 12 : 16 // editor-line左侧padding
@@ -283,19 +293,10 @@ function App() {
         if (line === '') {
           allLines.push('')
         } else {
-          // For desktop, don't split the AI interest line to keep it as one paragraph
-          const isDesktop = !isMobile && !isSmallMobile
-          const isAILine = line.includes('她尤其关注 AI 在上述领域的开发过程中的应用')
-          
-          if (isDesktop && isAILine) {
-            // Keep the entire line without splitting on desktop
-            allLines.push(line)
-          } else {
-            const splitLines = splitLongLine(line, containerWidth, fontSize, lineNumberWidth, linePaddingLeft, rightPadding, lineNumberPadding, linePaddingRight)
-            splitLines.forEach((splitLine) => {
-              allLines.push(splitLine)
-            })
-          }
+          const splitLines = splitLongLine(line, containerWidth, fontSize, lineNumberWidth, linePaddingLeft, rightPadding, lineNumberPadding, linePaddingRight)
+          splitLines.forEach((splitLine) => {
+            allLines.push(splitLine)
+          })
         }
       })
       
@@ -321,6 +322,16 @@ function App() {
     
     // Update on window resize
     const handleResize = () => {
+      // Re-check if mobile after resize
+      const isMobileAfterResize = window.innerWidth <= 768
+      const isSmallMobileAfterResize = window.innerWidth <= 480
+      
+      // If switched to desktop, clear split content
+      if (!isMobileAfterResize && !isSmallMobileAfterResize) {
+        setSplitContent([])
+        return
+      }
+      
       requestAnimationFrame(updateSplitContent)
     }
     window.addEventListener('resize', handleResize)
@@ -549,10 +560,14 @@ function App() {
       const width = measureEl.offsetWidth
       
       // Account for: line number width + line number padding + line left padding + line right padding + content right padding
-      // Use 98% of available width to allow text to fill the line better while avoiding overflow
-      const availableWidth = (containerWidth - lineNumberWidth - lineNumberPadding - linePaddingLeft - linePaddingRight - rightPadding) * 0.98
+      // Use 99.5% of available width for desktop to maximize line usage while avoiding overflow
+      const isDesktop = window.innerWidth > 768
+      const widthMultiplier = isDesktop ? 0.995 : 0.98
+      const availableWidth = (containerWidth - lineNumberWidth - lineNumberPadding - linePaddingLeft - linePaddingRight - rightPadding) * widthMultiplier
       
-      if (width > availableWidth && currentLine !== '') {
+      // Only break if the line would exceed available width AND we have content in currentLine
+      // This prevents breaking on single words unless absolutely necessary
+      if (width > availableWidth && currentLine.trim() !== '') {
         lines.push(currentLine.trimEnd())
         currentLine = word
       } else {
@@ -2936,8 +2951,13 @@ function App() {
                   return getPageContent().map((line, idx) => renderLine(line, idx + 1))
                 }
                 
-                // Use split content if available, otherwise fallback to original
-                const content = splitContent.length > 0 ? splitContent : getPageContent()
+                // For mobile: use split content if available
+                // For desktop: always use original content (no splitting)
+                const isMobile = window.innerWidth <= 768
+                const isSmallMobile = window.innerWidth <= 480
+                const useSplitContent = (isMobile || isSmallMobile) && splitContent.length > 0
+                
+                const content = useSplitContent ? splitContent : getPageContent()
                 return content.map((line, idx) => renderLine(line, idx + 1))
               })()}
             </div>
@@ -2948,7 +2968,9 @@ function App() {
       {/* Status Bar */}
       <div className="status-bar">
         <div className="status-bar-content">
-          <span className="status-bar-text">{t('Last Updated')}: {formatDate()}</span>
+          <span className="status-bar-text">
+            {t('Copyright')} | {t('Last Updated')}: {formatDate()}
+          </span>
         </div>
       </div>
     </div>
