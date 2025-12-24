@@ -3,6 +3,7 @@ import React from 'react'
 import './App.css'
 import threeSinsCover from './assets/portfolio/games/ThreeSins_cover.png'
 import smileRecoveryCover from './assets/portfolio/games/SmileRecovery_cover.png'
+import inanimateCover from './assets/portfolio/games/Inanimate_cover.png'
 import threeSinsContent1 from './assets/portfolio/games/ThreeSins_content1.png'
 import threeSinsContent2 from './assets/portfolio/games/ThreeSins_content2.png'
 import threeSinsContent3 from './assets/portfolio/games/ThreeSins_content3.jpg'
@@ -10,6 +11,10 @@ import smileRecoveryContent1 from './assets/portfolio/games/SmileRecovery_conten
 import smileRecoveryContent2 from './assets/portfolio/games/SmileRecovery_content2.png'
 import smileRecoveryContent3 from './assets/portfolio/games/SmileRecovery_content3.png'
 import smileRecoveryVideo from './assets/portfolio/games/SmileRecovery_video.png'
+import inanimateContent1 from './assets/portfolio/games/Inanimate_content1.png'
+import inanimateContent2 from './assets/portfolio/games/Inanimate_content2.jpg'
+import inanimateContent from './assets/portfolio/games/Inanimate_content.png'
+import inanimateContent3 from './assets/portfolio/games/Inanimate_content3.png'
 
 // Get base URL for assets (handles GitHub Pages subdirectory)
 const BASE_URL = import.meta.env.BASE_URL
@@ -21,7 +26,7 @@ const getPublicPath = (path: string) => {
   return `${BASE_URL}${cleanPath}`
 }
 
-type Page = 'welcome' | 'interests' | 'dreams' | 'favorites' | 'portfolio' | 'skills' | 'experience' | 'games' | 'backend-projects' | 'three-sins' | 'smile-recovery' | 'contact'
+type Page = 'welcome' | 'interests' | 'dreams' | 'favorites' | 'portfolio' | 'skills' | 'experience' | 'games' | 'backend-projects' | 'three-sins' | 'smile-recovery' | 'inanimate' | 'contact'
 
 interface NavItem {
   id: Page
@@ -65,6 +70,7 @@ const translations: Record<string, Record<string, string>> = {
     'Contact': 'Contact',
     'Three Sins': 'Three Sins',
     'Smile Recovery': 'Smile Recovery',
+    'Inanimate': 'Inanimate',
     'Last Updated': 'Last Updated',
     'Copyright': '© 2025 Yve Hu',
   },
@@ -84,6 +90,7 @@ const translations: Record<string, Record<string, string>> = {
     'Contact': '联系方式',
     'Three Sins': '《三毒》',
     'Smile Recovery': '《笑脸康复工程》',
+    'Inanimate': '《失神》',
     'Last Updated': '上次更新',
     'Copyright': '© 2025 Yve Hu',
   },
@@ -95,6 +102,7 @@ function App() {
   const [highlightedGame, setHighlightedGame] = useState<string | null>(null) // Track highlighted game
   const [threeSinsImageIndex, setThreeSinsImageIndex] = useState(0) // Track current image index for Three Sins
   const [smileRecoveryImageIndex, setSmileRecoveryImageIndex] = useState(0) // Track current image index for Smile Recovery
+  const [inanimateImageIndex, setInanimateImageIndex] = useState(0) // Track current image index for Inanimate
   const [hoveredNavButton, setHoveredNavButton] = useState<'left' | 'right' | null>(null) // Track hovered nav button
   const [isLangMenuOpen, setIsLangMenuOpen] = useState(false)
   const [expandedLangCategory, setExpandedLangCategory] = useState<string | null>(null)
@@ -387,6 +395,10 @@ function App() {
     if (pageId === 'smile-recovery') {
       setSmileRecoveryImageIndex(0)
     }
+    // Reset image index when opening Inanimate page
+    if (pageId === 'inanimate') {
+      setInanimateImageIndex(0)
+    }
   }
 
   // Handle closing a tab
@@ -637,7 +649,7 @@ function App() {
         return [
           "最喜欢的游戏： 她喜欢《底特律：变人》那样以剧情核心、由玩家选择驱动的互动电影式游戏，也喜欢《锈湖》那样画风复古怪诞、风格鲜明的解密游戏；她不太喜欢MOBA、魂系等重操作的硬核游戏，因为她技术很菜。",
           "",
-          "最喜欢的城市：  巴黎。因为她在那里度过了最无忧无虑的18岁，也是在那里她第一次真正理解\"生活不是竞技场\"，并下定决心转学重读她一直害怕的计算机科学专业（起初不敢学，是因为她中学理科考试从未赢过班里的竞赛生）。",
+          "最喜欢的城市： 巴黎。因为她在那里度过了最无忧无虑的18岁，也是在那里她第一次真正理解\"生活不是竞技场\"，并下定决心转学重读她一直害怕的计算机科学专业（起初不敢学，是因为她中学理科考试从未赢过班里的竞赛生）。",
         ]
       }
       return [
@@ -724,6 +736,11 @@ function App() {
     if (currentPage === 'smile-recovery') {
       return [
         "[SMILE_RECOVERY_CONTENT]",
+      ]
+    }
+    if (currentPage === 'inanimate') {
+      return [
+        "[INANIMATE_CONTENT]",
       ]
     }
     if (currentPage === 'backend-projects') {
@@ -1773,6 +1790,30 @@ function App() {
           <div key={lineNum} className="editor-line games-projects-line">
             <span className="line-content">
               <div className="games-projects-container">
+                {/* Inanimate Project */}
+                <div 
+                  className={`game-project ${highlightedGame === 'inanimate' ? 'highlighted' : ''}`}
+                  onMouseEnter={() => setHighlightedGame('inanimate')}
+                  onMouseLeave={() => setHighlightedGame(null)}
+                >
+                  <img 
+                    src={inanimateCover} 
+                    alt="CUGG Game Incubator Fall 2025 - Inanimate" 
+                    className="game-cover-image"
+                    onClick={() => handlePageClick('inanimate')}
+                  />
+                  <div className="game-project-info">
+                    <div className="game-title">CUGG Game Incubator Fall 2025 - {selectedHumanLang === '简体中文' ? '《失神》' : 'Inanimate'}</div>
+                    <div className="game-role">
+                      <span>{selectedHumanLang === '简体中文' ? '主程序员' : 'Lead Programmer'}</span>
+                      <span className="game-tech-icons">
+                        <img src={getPublicPath('tech-logos/Unity.png')} alt="Unity" className="game-tech-icon" />
+                        <img src={getPublicPath('tech-logos/Csharp.png')} alt="C#" className="game-tech-icon" />
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
                 {/* Three Sins Project */}
                 <div 
                   className={`game-project ${highlightedGame === 'three-sins' ? 'highlighted' : ''}`}
@@ -2238,6 +2279,190 @@ function App() {
         </div>
       )
     }
+
+    if (currentPage === 'inanimate') {
+      if (line === '[INANIMATE_CONTENT]') {
+        const youtubeVideoId = 'urW1FUbuvNI'
+        const inanimateMedia = [
+          { type: 'video' as const, videoId: youtubeVideoId, thumbnail: inanimateCover },
+          { type: 'image' as const, src: inanimateContent1 },
+          { type: 'image' as const, src: inanimateContent2 },
+          { type: 'image' as const, src: inanimateContent },
+          { type: 'image' as const, src: inanimateContent3 }
+        ]
+        const currentMedia = inanimateMedia[inanimateImageIndex]
+        const prevImageIndex = inanimateImageIndex === 0 ? inanimateMedia.length - 1 : inanimateImageIndex - 1
+        const nextImageIndex = inanimateImageIndex === inanimateMedia.length - 1 ? 0 : inanimateImageIndex + 1
+        const prevMedia = inanimateMedia[prevImageIndex]
+        const nextMedia = inanimateMedia[nextImageIndex]
+
+        return (
+          <div key={lineNum} className="editor-line three-sins-content-line">
+            <span className="line-content">
+              <div className="three-sins-container">
+                {/* Image Preview Section */}
+                <div className="three-sins-image-section">
+                  <div className="three-sins-carousel">
+                    {/* Left Preview (Previous Media) */}
+                    <div 
+                      className={`three-sins-preview-left ${hoveredNavButton === 'left' ? 'highlighted' : ''}`}
+                      onClick={() => setInanimateImageIndex(prevImageIndex)}
+                    >
+                      <img 
+                        src={prevMedia.type === 'video' ? prevMedia.thumbnail : prevMedia.src} 
+                        alt="Previous" 
+                        className="three-sins-preview-image" 
+                      />
+                    </div>
+
+                    {/* Main Media */}
+                    <div className="three-sins-main-image-container">
+                      <button
+                        className="three-sins-nav-button three-sins-nav-left"
+                        onClick={() => setInanimateImageIndex(prevImageIndex)}
+                        onMouseEnter={() => setHoveredNavButton('left')}
+                        onMouseLeave={() => setHoveredNavButton(null)}
+                        aria-label="Previous media"
+                      >
+                        ‹
+                      </button>
+                      {currentMedia.type === 'video' ? (
+                        <iframe
+                          src={`https://www.youtube.com/embed/${currentMedia.videoId}`}
+                          className="three-sins-main-video"
+                          frameBorder="0"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                          title="Inanimate Game Video"
+                        />
+                      ) : (
+                        <img src={currentMedia.src} alt="Inanimate Game Screenshot" className="three-sins-main-image" />
+                      )}
+                      <button
+                        className="three-sins-nav-button three-sins-nav-right"
+                        onClick={() => setInanimateImageIndex(nextImageIndex)}
+                        onMouseEnter={() => setHoveredNavButton('right')}
+                        onMouseLeave={() => setHoveredNavButton(null)}
+                        aria-label="Next media"
+                      >
+                        ›
+                      </button>
+                    </div>
+
+                    {/* Right Preview (Next Media) */}
+                    <div 
+                      className={`three-sins-preview-right ${hoveredNavButton === 'right' ? 'highlighted' : ''}`}
+                      onClick={() => setInanimateImageIndex(nextImageIndex)}
+                    >
+                      <img 
+                        src={nextMedia.type === 'video' ? nextMedia.thumbnail : nextMedia.src} 
+                        alt="Next" 
+                        className="three-sins-preview-image" 
+                      />
+                    </div>
+                  </div>
+
+                  {/* Thumbnail Navigation */}
+                  <div className="three-sins-thumbnails">
+                    {inanimateMedia.map((media, idx) => (
+                      <div
+                        key={idx}
+                        className={`three-sins-thumbnail ${idx === inanimateImageIndex ? 'active' : ''}`}
+                        onClick={() => setInanimateImageIndex(idx)}
+                      >
+                        <img 
+                          src={media.type === 'video' ? media.thumbnail : media.src} 
+                          alt={media.type === 'video' ? 'Inanimate Video' : `Inanimate ${idx}`} 
+                        />
+                        {media.type === 'video' && (
+                          <div className="thumbnail-play-icon">▶</div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Bottom Sections */}
+                <div className="three-sins-info-sections">
+                  {/* Row 1: Game Details & CUGG Game Incubator Fall 2025 */}
+                  <div className="three-sins-info-panel">
+                    <div className="three-sins-panel-header">{selectedHumanLang === '简体中文' ? '游戏详情' : 'Game Details'}</div>
+                    <div className="three-sins-panel-content">
+                      <div><span className="three-sins-label">{selectedHumanLang === '简体中文' ? '名称：' : 'Title:'}</span> <span>{selectedHumanLang === '简体中文' ? '《失神》' : 'Inanimate'}</span></div>
+                      <div><span className="three-sins-label">{selectedHumanLang === '简体中文' ? '类型：' : 'Genre:'}</span> <span>{selectedHumanLang === '简体中文' ? '恐怖、冒险' : 'Horror, Adventure'}</span></div>
+                      <div><span className="three-sins-label">{selectedHumanLang === '简体中文' ? '标签：' : 'Tags:'}</span> <span>{selectedHumanLang === '简体中文' ? '3D、心理恐怖' : '3D, Psychological Horror'}</span></div>
+                      <div><span className="three-sins-label">{selectedHumanLang === '简体中文' ? '平台：' : 'Platform:'}</span> <span>{selectedHumanLang === '简体中文' ? 'Windows、macOS' : 'Windows, macOS'}</span></div>
+                    </div>
+                  </div>
+
+                  <div className="three-sins-info-panel">
+                    <div className="three-sins-panel-header-with-badge">
+                      <div className="three-sins-panel-header">{selectedHumanLang === '简体中文' ? '哥大游戏社2025年秋季孵化器' : 'CUGG Game Incubator Fall 2025'}</div>
+                      <span className="three-sins-official-badge">{selectedHumanLang === '简体中文' ? '参赛作品' : 'Official Entry'}</span>
+                    </div>
+                    <div className="three-sins-panel-content">
+                      <div>
+                        <span className="three-sins-label">{selectedHumanLang === '简体中文' ? '主题：' : 'Theme:'}</span> <span>{selectedHumanLang === '简体中文' ? '恐怖游戏' : 'Horror Game'}</span>
+                      </div>
+                      <div>
+                        <span className="three-sins-label">{selectedHumanLang === '简体中文' ? '作品页面：' : 'Project Page:'}</span> <span><a href="https://jesuisyve.itch.io/inanimate" target="_blank" rel="noopener noreferrer" className="three-sins-link">itch.io</a></span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Row 2: Game Description & Development */}
+                  <div className="three-sins-info-panel">
+                    <div className="three-sins-panel-header">{selectedHumanLang === '简体中文' ? '游戏简介' : 'Game Description'}</div>
+                    <div className="three-sins-panel-content">
+                      {selectedHumanLang === '简体中文' ? (
+                        <>
+                          <div>被困诅咒之屋，三夜生死考验。</div>
+                          <div style={{ marginTop: '1em' }}></div>
+                          <div>收集散落的记忆娃娃来维持理智。但请注意——时间正在流逝，你的意识也在逐渐崩溃……</div>
+                          <div style={{ marginTop: '1em' }}></div>
+                          <div>你能撑到天明吗？</div>
+                        </>
+                      ) : (
+                        <>
+                          <div>Inanimate is a psychological horror game where you're trapped in a cursed house for three nights. Collect the Memory Dolls scattered throughout each room to maintain your sanity. But be warned - time is running out, and your mind is slipping away...</div>
+                        </>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="three-sins-info-panel">
+                    <div className="three-sins-panel-header">{selectedHumanLang === '简体中文' ? '开发信息' : 'Production'}</div>
+                    <div className="three-sins-panel-content">
+                      <div><span className="three-sins-label">{selectedHumanLang === '简体中文' ? '团队大小：' : 'Team Size:'}</span> <span>4</span></div>
+                      <div><span className="three-sins-label">{selectedHumanLang === '简体中文' ? '她的角色：' : 'Her Role:'}</span> <span>{selectedHumanLang === '简体中文' ? '主程序员' : 'Lead Programmer'}</span></div>
+                      <div className="three-sins-tech-tools">
+                        <span className="three-sins-label">{selectedHumanLang === '简体中文' ? '技术实现：' : 'Tech & Tools:'}</span>
+                        <span className="three-sins-tech-icons">
+                          <span className="game-tech-icon-wrapper">
+                            <img src={getPublicPath('tech-logos/Unity.png')} alt="Unity" className="three-sins-tech-icon" />
+                            <span className="game-tech-tooltip">Unity</span>
+                          </span>
+                          <span className="game-tech-icon-wrapper">
+                            <img src={getPublicPath('tech-logos/Csharp.png')} alt="C#" className="three-sins-tech-icon" />
+                            <span className="game-tech-tooltip">C#</span>
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </span>
+          </div>
+        )
+      }
+      const isEmpty = !line || line.trim() === ''
+      return (
+        <div key={lineNum} className={`editor-line three-sins-content-line ${isEmpty ? 'empty-line' : ''}`}>
+          <span className="line-content">{line}</span>
+        </div>
+      )
+    }
     
     // Java comment style for pages with "Coming soon" or "快了" message
     if (line && (line.includes("Coming soon — she's debugging reality") || line.includes("// 快了 —— 她最近在debug现实"))) {
@@ -2534,8 +2759,8 @@ function App() {
     if (currentPage === itemId) {
       return true
     }
-    // Games should be active when viewing Three Sins or Smile Recovery
-    if (itemId === 'games' && (currentPage === 'three-sins' || currentPage === 'smile-recovery')) {
+    // Games should be active when viewing Three Sins, Smile Recovery, or Inanimate
+    if (itemId === 'games' && (currentPage === 'three-sins' || currentPage === 'smile-recovery' || currentPage === 'inanimate')) {
       return true
     }
     return false
@@ -2856,6 +3081,8 @@ function App() {
                   tabLabel = t('Three Sins')
                 } else if (tabId === 'smile-recovery') {
                   tabLabel = t('Smile Recovery')
+                } else if (tabId === 'inanimate') {
+                  tabLabel = t('Inanimate')
                 } else {
                   tabLabel = tabId
                 }
