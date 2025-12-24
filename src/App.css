@@ -509,6 +509,17 @@
   font-family: "Fira Code", "JetBrains Mono", "Consolas", monospace;
 }
 
+/* Reduce top padding for Games page */
+.editor-line.games-projects-line {
+  margin-top: -8px;
+  padding-top: 0;
+}
+
+/* Reduce top padding for editor content when on games page */
+.editor-content:has(.games-projects-container) {
+  padding-top: 18px;
+}
+
 .editor-line.columbia-line {
   margin-left: -1px;
 }
@@ -1078,7 +1089,7 @@
 .games-projects-container {
   display: flex;
   gap: 32px;
-  margin-top: 16px; /* Reduced from 24px to move content up */
+  margin-top: 12px; /* Small gap for spacing */
   margin-left: 24px;
   flex-wrap: wrap;
 }
